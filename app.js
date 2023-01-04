@@ -6,9 +6,16 @@ var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var authRouter = require("./routes/auth");
+
 var { graphqlHTTP } = require("express-graphql");
 var { schema } = require("./graphql/schema");
 var { root } = require("./graphql/resolver");
+
+const dotenv = require("dotenv");
+
+// get config vars
+dotenv.config();
 
 var app = express();
 
@@ -24,6 +31,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/auth", authRouter);
 
 app.use(
   "/graphql",
