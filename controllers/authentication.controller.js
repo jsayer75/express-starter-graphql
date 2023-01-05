@@ -1,24 +1,10 @@
-var express = require("express");
 const {
+  comparePassword,
   generateAccessToken,
   hashPassword,
-  comparePassword,
-} = require("../controllers/authentication");
+} = require("../utils/auth.util");
 
-var router = express.Router();
-
-/* Signup Request */
-router.post("/", function (req, res, next) {
-  try {
-    hashPassword(req.body.password);
-    res.json({ message: "OK" });
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-/* Signup Request */
-router.post("/signin", async function (req, res, next) {
+async function signIn(req, res) {
   // TODO: Get Hash from database for req.body.email
   // `test` password hash: $2b$10$VAGcBtMcPfbmtyhLrGk0DO7Mlsn5npcHWPkyLSVLb036gA8DI9jlq
   const hash = "$2b$10$VAGcBtMcPfbmtyhLrGk0DO7Mlsn5npcHWPkyLSVLb036gA8DI9jlq";
@@ -30,6 +16,15 @@ router.post("/signin", async function (req, res, next) {
   });
 
   res.json({ authToken: token, verified: passwordVerified });
-});
+}
 
-module.exports = router;
+function signUp(req, res, next) {
+  try {
+    hashPassword(req.body.password);
+    res.json({ message: "OK" });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+module.exports = { signIn, signUp };

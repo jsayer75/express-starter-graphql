@@ -39,8 +39,8 @@ function authenticateToken(req, res, next) {
 }
 
 module.exports = {
-  hashPassword,
+  authenticateToken,
   comparePassword,
   generateAccessToken,
-  authenticateToken,
+  hashPassword,
 };
