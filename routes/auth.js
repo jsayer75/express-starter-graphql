@@ -4,6 +4,7 @@ const {
   hashPassword,
   comparePassword,
 } = require("../controllers/authentication");
+
 var router = express.Router();
 
 /* Signup Request */
@@ -23,7 +24,7 @@ router.post("/signin", async function (req, res, next) {
   const hash = "$2b$10$VAGcBtMcPfbmtyhLrGk0DO7Mlsn5npcHWPkyLSVLb036gA8DI9jlq";
   const passwordVerified = await comparePassword(req.body.password, hash);
 
-  const token = generateAccessToken({
+  const token = await generateAccessToken({
     email: req.email,
     password: req.password,
   });
