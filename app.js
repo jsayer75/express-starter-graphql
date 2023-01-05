@@ -3,17 +3,16 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var { graphqlHTTP } = require("express-graphql");
+
+const dotenv = require("dotenv");
+// get config vars
+dotenv.config();
 
 var indexRouter = require("./routes/index");
 
-var { graphqlHTTP } = require("express-graphql");
 var { schema } = require("./graphql/schema");
 var { root } = require("./graphql/resolver");
-
-const dotenv = require("dotenv");
-
-// get config vars
-dotenv.config();
 
 var app = express();
 

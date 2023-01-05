@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 function hashPassword(plaintextPassword) {
   bcrypt.genSalt(10, async (err, salt) => {
     bcrypt.hash(plaintextPassword, salt, (err, hash) => {
-      // TODO: Store hash in the database
+      // TODO: return hash
       console.log({ hash });
     });
   });
