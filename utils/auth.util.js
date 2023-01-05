@@ -1,13 +1,10 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-function hashPassword(plaintextPassword) {
-  bcrypt.genSalt(10, async (err, salt) => {
-    bcrypt.hash(plaintextPassword, salt, (err, hash) => {
-      // TODO: return hash
-      console.log({ hash });
-    });
-  });
+async function hashPassword(plaintextPassword) {
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(plaintextPassword, salt);
+  return hash;
 }
 // compare password
 async function comparePassword(plaintextPassword, hash) {

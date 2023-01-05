@@ -1,13 +1,5 @@
 const { Sequelize } = require("sequelize");
 
-// const sequelize = new Sequelize(
-//   `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:5432/journey`
-// );
-
-// const sequelize = new Sequelize(
-//   "postgres://postgres:postgres@localhost:5432/journey"
-// );
-
 const sequelize = new Sequelize(
   "journey",
   `${process.env.DB_USER}`,
@@ -21,10 +13,10 @@ const sequelize = new Sequelize(
 sequelize
   .authenticate()
   .then(() => {
-    console.log("connection successful");
+    console.log("Database successfully connected");
   })
   .catch((err) => {
-    console.log("Connection error");
+    console.log("Database connection error", err);
   });
 
 module.exports = sequelize;

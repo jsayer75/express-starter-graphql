@@ -1,4 +1,4 @@
-const { saveUser } = require("../models/auth.model");
+const authModel = require("../models/auth.model");
 const {
   comparePassword,
   generateAccessToken,
@@ -21,10 +21,11 @@ async function signIn(req, res) {
 
 async function signUp(req, res, next) {
   try {
-    await hashPassword(req.body.password);
-    saveUser(req);
-    // TODO: Store hash in the database
-    res.json({ message: "OK" });
+    const hash = await hashPassword(req.body.password);
+    const newUser = authModel.saveUser(req, hash);
+    console.log({ newUser });
+
+    res.json({ message: "OK", data: newUser });
   } catch (error) {
     console.log(error);
   }

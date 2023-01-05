@@ -1,6 +1,19 @@
-const { sequelize } = require("./db");
+const { DataTypes } = require("sequelize");
+const sequelize = require("./db");
 
-function saveUser(req, res) {}
+const User = sequelize.define("User", {
+  email: DataTypes.TEXT,
+  password: DataTypes.TEXT,
+});
+
+User.sync();
+
+function saveUser(req, passwordHash) {
+  const { email } = req.body;
+  const newUser = User.build({ email, password: passwordHash });
+  newUser.save();
+  return newUser;
+}
 
 module.exports = {
   saveUser,
