@@ -14,8 +14,8 @@ async function comparePassword(plaintextPassword, hash) {
   return result;
 }
 
-function generateAccessToken(username) {
-  return jwt.sign(username, process.env.TOKEN_SECRET, { expiresIn: "1m" });
+function generateAccessToken(userInfo) {
+  return jwt.sign(userInfo, process.env.TOKEN_SECRET, { expiresIn: "5m" });
 }
 
 function authenticateToken(req, res, next) {

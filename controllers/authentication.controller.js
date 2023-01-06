@@ -7,9 +7,9 @@ const {
 
 async function signIn(req, res) {
   const { password } = req.body;
+
   const user = await authModel.getUser(req);
   const passwordVerified = await comparePassword(password, user.password);
-
   const token = await generateAccessToken({
     email: req.email,
     password: req.password,
