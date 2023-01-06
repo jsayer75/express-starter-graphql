@@ -6,10 +6,9 @@ const {
 } = require("../utils/auth.util");
 
 async function signIn(req, res) {
-  // TODO: Get Hash from database for req.body.email
-  // `test` password hash: $2b$10$VAGcBtMcPfbmtyhLrGk0DO7Mlsn5npcHWPkyLSVLb036gA8DI9jlq
-  const hash = "$2b$10$VAGcBtMcPfbmtyhLrGk0DO7Mlsn5npcHWPkyLSVLb036gA8DI9jlq";
-  const passwordVerified = await comparePassword(req.body.password, hash);
+  const { password } = req.body;
+  const user = await authModel.getUser(req);
+  const passwordVerified = await comparePassword(password, user.password);
 
   const token = await generateAccessToken({
     email: req.email,

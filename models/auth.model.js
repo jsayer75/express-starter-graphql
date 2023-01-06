@@ -6,6 +6,12 @@ const User = sequelize.define("User", {
   password: DataTypes.TEXT,
 });
 
+async function getUser(req) {
+  const { email } = req.body;
+  const user = await User.findOne({ where: { email } });
+  return user;
+}
+
 function saveUser(req, passwordHash) {
   const { email } = req.body;
   const newUser = User.build({ email, password: passwordHash });
@@ -15,4 +21,5 @@ function saveUser(req, passwordHash) {
 
 module.exports = {
   saveUser,
+  getUser,
 };
