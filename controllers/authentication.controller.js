@@ -23,7 +23,6 @@ async function signUp(req, res, next) {
   try {
     const hash = await hashPassword(req.body.password);
     const newUser = authModel.saveUser(req, hash);
-    console.log({ newUser });
 
     res.json({ message: "OK", data: newUser });
   } catch (error) {

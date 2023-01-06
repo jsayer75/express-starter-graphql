@@ -2,11 +2,9 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("./db");
 
 const User = sequelize.define("User", {
-  email: DataTypes.TEXT,
+  email: { type: DataTypes.TEXT, allowNull: false, unique: true },
   password: DataTypes.TEXT,
 });
-
-User.sync();
 
 function saveUser(req, passwordHash) {
   const { email } = req.body;

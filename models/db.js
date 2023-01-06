@@ -13,10 +13,22 @@ const sequelize = new Sequelize(
 sequelize
   .authenticate()
   .then(() => {
-    console.log("Database successfully connected");
+    console.log("DATABASE connected successfully. \n");
   })
   .catch((err) => {
     console.log("Database connection error", err);
   });
+
+/**
+ * Sync forcefully database with new models.
+ */
+// try {
+//   (async () => {
+//     await sequelize.sync({ force: true });
+//     // Code here
+//   })();
+// } catch (error) {
+//   console.error(error);
+// }
 
 module.exports = sequelize;
