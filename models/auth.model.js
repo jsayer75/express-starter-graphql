@@ -7,9 +7,14 @@ const User = sequelize.define("User", {
 });
 
 async function getUser(req) {
-  const { email } = req.body;
-  const user = await User.findOne({ where: { email } });
-  return user;
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ where: { email } });
+    return user;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 }
 
 function saveUser(req, passwordHash) {
